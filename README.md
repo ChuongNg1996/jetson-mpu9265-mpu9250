@@ -17,7 +17,7 @@ There was not much example of using MPU92/65 (i can find only one for Arduino), 
    pip3 install board
    pip3 install adafruit-blinka
    ```
-* Run 
+* Run `mpu9265.py`
 
 ## Others
 * Need Python >= 3.7. If there are multiple Python 3 and Python < 3.7 is set as default, change to higher version, for example Python 3.8 [by](https://askubuntu.com/questions/922853/update-python-3-5-to-3-6-via-terminal):
