@@ -1,5 +1,9 @@
-# Jetson MPU-92/65
-Read data from MPU92/65 
+# Jetson MPU-92/65 (Building)
+Read data from MPU92/65. 
+
+## Project Description
+There was not much example of using MPU92/65 (i can find only one for Arduino), let alone on Jetson (Nano) board. So i tried to write one for my Jetson Nano using: 
+* [board](https://learn.adafruit.com/arduino-to-circuitpython/the-board-module) & [busio](https://docs.circuitpython.org/en/latest/shared-bindings/busio/) modules from Adafruit with this [I2C example](https://learn.adafruit.com/circuitpython-basics-i2c-and-spi/i2c-devices) 
 
 ## Installation
 
