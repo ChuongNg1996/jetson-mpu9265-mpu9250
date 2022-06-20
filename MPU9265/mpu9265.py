@@ -6,6 +6,9 @@ import time
 
 MPU9265_ADDRESS = 0x68
 
+# On the Jetson Nano
+# Bus 0 (pins 28,27) is board SCL_1, SDA_1 in the jetson board definition file
+# Bus 1 (pins 5, 3) is board SCL, SDA in the jetson definition file
 i2c_bus0=(busio.I2C(board.SCL_1, board.SDA_1))
 print(i2c_bus0.scan())
 result = bytearray(14)
