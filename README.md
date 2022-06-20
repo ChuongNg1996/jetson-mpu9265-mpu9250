@@ -12,7 +12,7 @@ There was not much example of using MPU92/65 (i can find only one for Arduino), 
 
 ## Setup & Installation
 * Firstly, let's check the pinouts of the board to see where we can use I2C. For [Jetson Nano](https://jetsonhacks.com/nvidia-jetson-nano-j41-header-pinout/), it is pin 3, 4 for SDA and SCL of I2C Bus 1 **AND** pin 27, 28 for SDA and SCL of I2C Bus 0. I choose I2C Bus 0. Make sure that pin 27, 28 is configured to I2C with `sudo /opt/nvidia/jetson-io/jetson-io.py`
-* After connecting the wires, use `sudo i2cdetect -r -y 0` if I2C Bus 0 is used (or `sudo i2cdetect -r -y 1` if I2C Bus 1 is used) to check if the address of the device is available (0x68 in this case).
+* After connecting the wires, use `sudo i2cdetect -r -y 0` if I2C Bus 0 is used (or `sudo i2cdetect -r -y 1` if I2C Bus 1 is used) to check if the address of the device is available (`0x68` in this case).
 * Install [board](https://learn.adafruit.com/arduino-to-circuitpython/the-board-module) & [busio](https://docs.circuitpython.org/en/latest/shared-bindings/busio/) modules
    ```sh
    pip3 install board
