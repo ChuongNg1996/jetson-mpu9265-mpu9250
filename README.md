@@ -3,7 +3,11 @@ Read data from MPU92/65.
 
 ## Project Description
 There was not much example of using MPU92/65 (i can find only one for Arduino), let alone on Jetson (Nano) board. So i tried to write one for my Jetson Nano using: 
-* [board](https://learn.adafruit.com/arduino-to-circuitpython/the-board-module) & [busio](https://docs.circuitpython.org/en/latest/shared-bindings/busio/) modules from Adafruit with this [I2C example](https://learn.adafruit.com/circuitpython-basics-i2c-and-spi/i2c-devices) 
+* [board](https://learn.adafruit.com/arduino-to-circuitpython/the-board-module) & [busio](https://docs.circuitpython.org/en/latest/shared-bindings/busio/) modules from Adafruit with this [I2C example](https://learn.adafruit.com/circuitpython-basics-i2c-and-spi/i2c-devices) for initializing and reading data in HEX from the I2C bus.
+* [Arduino example](https://bitbucket.org/cinqlair/mpu9250/src/master/) for using the data.
+
+## Requirement
+* Python >= 3.7
 
 ## Installation
 
