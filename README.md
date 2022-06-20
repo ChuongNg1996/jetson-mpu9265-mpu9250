@@ -24,4 +24,4 @@ There was not much example of using MPU92/65 (i can find only one for Arduino), 
  ```sh
  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
  ```
-* [From Adafruit] (https://learn.adafruit.com/arduino-to-circuitpython/the-board-module): " CircuitPython knows what board it's running on, and it knows what the capabilities of that board are ... The board module in CircuitPython for a different board will have different constants specific to that board. The user does not have to tell CircuitPython what board it is running on, it knows."
+* [From Adafruit](https://learn.adafruit.com/arduino-to-circuitpython/the-board-module): " CircuitPython knows what board it's running on, and it knows what the capabilities of that board are ... The board module in CircuitPython for a different board will have different constants specific to that board. The user does not have to tell CircuitPython what board it is running on, it knows."
