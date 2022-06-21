@@ -28,8 +28,10 @@ There was not much example of using MPU-92/65 (i can find only one for MPU-9250 
    pip3 install board
    pip3 install adafruit-blinka
    pip3 install adafruit-circuitpython-register
+   pip3 install bitstring
    ```
 * Run `mpu9265_raw.py` to read raw values.
+* Run `mpu9265_normalized.py` for calibrated and filtered values.
 
 ## Others
 * Need Python >= 3.7. If there are multiple Python 3 and Python < 3.7 is set as default, change to higher version, for example Python 3.8 [by](https://askubuntu.com/questions/922853/update-python-3-5-to-3-6-via-terminal):
@@ -38,4 +40,4 @@ There was not much example of using MPU-92/65 (i can find only one for MPU-9250 
  ```
 * [From Adafruit](https://learn.adafruit.com/arduino-to-circuitpython/the-board-module): " CircuitPython knows what board it's running on, and it knows what the capabilities of that board are ... The board module in CircuitPython for a different board will have different constants specific to that board. The user does not have to tell CircuitPython what board it is running on, it knows."
 * One of the biggest hurdles is **bit operation on Python**, or rather the differnce between C and Python implementation. In particular, `Byte(a) << 8 | Byte(b)` does not make a 16 bit with 8 bits of `Byte(a)` on Left and 8 bits of `Byte(b)` on right.
-* One big mistake of mine is translating from binary to UNSIGNED decimal, where it should be SIGNED decimal.  
+* One big mistake of mine is translating from binary to UNSIGNED decimal, where it should be **SIGNED decimal**.  
