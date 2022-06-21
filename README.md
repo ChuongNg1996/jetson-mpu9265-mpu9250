@@ -3,9 +3,10 @@ Read data from MPU92/65.
 
 ## Project Description
 There was not much example of using MPU-92/65 (i can find only one for MPU-9250 for Arduino), let alone on Jetson (Nano) board. So i tried to write one for my Jetson Nano using: 
+* [Registor table of MPU-9250](https://invensense.tdk.com/wp-content/uploads/2015/02/RM-MPU-9250A-00-v1.6.pdf?fbclid=IwAR0FpBXQ7I7tPWq4zMzslkFWPMuBETKKIuomCDbE0uknWk32aRPCX_qBhTI), assuming that they are similar
 * [board](https://learn.adafruit.com/arduino-to-circuitpython/the-board-module) & [busio](https://docs.circuitpython.org/en/latest/shared-bindings/busio/) modules from Adafruit with this [I2C example](https://learn.adafruit.com/circuitpython-basics-i2c-and-spi/i2c-devices) for initializing and reading **data** from a device (by its address) on the I2C bus.
-* [Adafruit CircuitPython Register](https://docs.circuitpython.org/projects/register/en/latest/examples.html) to access specific registers of the MPU-92/65   
-* [Arduino example](https://bitbucket.org/cinqlair/mpu9250/src/master/) for configuring MPU-92/65 and using its **data**.
+* [Adafruit CircuitPython Register](https://docs.circuitpython.org/projects/register/en/latest/examples.html) to access specific registers of the MPU-92/65.   
+* [Arduino example of MPU-9250](https://bitbucket.org/cinqlair/mpu9250/src/master/) for configuring MPU-92/65 and using its **data**.
 * [The servo I2C example](https://github.com/JetsonHacksNano/ServoKit/blob/master/servoPlay.py) of JetsonHacks for some definitions. 
 
 ## Requirement
