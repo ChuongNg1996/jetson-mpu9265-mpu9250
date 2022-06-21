@@ -1,5 +1,5 @@
-# Jetson MPU-92/65 (Building)
-Read data from MPU92/65. 
+# Jetson MPU-92/65 and MPU-9250
+Read data from MPU92/65 and MPU-9250. 
 
 ## Project Description
 There was not much example of using MPU-92/65 (i can find only one for MPU-9250 for Arduino), let alone on Jetson (Nano) board. So i tried to write one for my Jetson Nano using: 
