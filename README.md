@@ -37,5 +37,5 @@ There was not much example of using MPU-92/65 (i can find only one for MPU-9250 
  sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
  ```
 * [From Adafruit](https://learn.adafruit.com/arduino-to-circuitpython/the-board-module): " CircuitPython knows what board it's running on, and it knows what the capabilities of that board are ... The board module in CircuitPython for a different board will have different constants specific to that board. The user does not have to tell CircuitPython what board it is running on, it knows."
-* One of biggest hurdles is **bit operation on Python**, or rather the differnce between C and Python implementation. In particular, `Byte(a) << 8 | Byte(b)` does not make a 16 bit with 8 bits of `Byte(a)` on Left and 8 bits of `Byte(b)` on right.
+* One of the biggest hurdles is **bit operation on Python**, or rather the differnce between C and Python implementation. In particular, `Byte(a) << 8 | Byte(b)` does not make a 16 bit with 8 bits of `Byte(a)` on Left and 8 bits of `Byte(b)` on right.
 * One big mistake of mine is translating from binary to UNSIGNED decimal, where it should be SIGNED decimal.  
