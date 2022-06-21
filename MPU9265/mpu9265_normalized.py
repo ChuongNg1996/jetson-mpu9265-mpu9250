@@ -10,6 +10,8 @@ from busio import I2C
 import time
 from adafruit_bus_device.i2c_device import I2CDevice
 from adafruit_register.i2c_struct import UnaryStruct
+import math
+import datetime
 from bitstring import BitArray
 
 # DEFINE THE ADDRESS(ES) OF THE DEVICE
@@ -55,8 +57,7 @@ ACC_FULL_SCALE_4_G = 0x08
 ACC_FULL_SCALE_8_G = 0x10
 ACC_FULL_SCALE_16_G = 0x18
 
-# Buffer to write data into
-result = bytearray(14) 
+
 
 # Class to config the device
 class DeviceControl:  # pylint: disable-msg=too-few-public-methods
@@ -101,6 +102,7 @@ registers.register26 = 0x06
 
 # Configure gyroscope range
 registers.register27 = GYRO_FULL_SCALE_250_DPS
+g_factor = 250
 
 # Configure accelerometers range
 registers.register28 = ACC_FULL_SCALE_2_G
@@ -111,23 +113,128 @@ registers.register55 = 0x02
 # # Request continuous magnetometer measurements in 16 bits
 # i2c_bus0.writeto(MAG_ADDRESS,0x0A,0x16) 
 
+# Calibration
+calibrate_num = 1000
+AccErrorX = 0
+AccErrorY = 0
+AccErrorZ = 0
+AccAngleErrorX = 0
+AccAngleErrorY = 0
+c = 0
+while (c < calibrate_num):
+    ax = format(registers.register59,'08b') + format(registers.register60,'08b')
+    ax = -BitArray(bin=ax).int / 16384.0
+    ay = format(registers.register61,'08b') + format(registers.register62,'08b')
+    ay = -BitArray(bin=ay).int / 16384.0
+    az = format(registers.register63,'08b') + format(registers.register64,'08b')
+    az = BitArray(bin=az).int / 16384.0
+
+    # Sum all readings
+    AccErrorX = AccErrorX + ax
+    AccErrorY = AccErrorY + ay
+    AccErrorZ = AccErrorZ + az
+
+    AccAngleErrorX = AccAngleErrorX + ((math.atan((ay) / math.sqrt(pow((ax), 2) + pow((az), 2))) * 180.0 / 3.14))
+    AccAngleErrorY = AccAngleErrorY + ((math.atan(-1 * (ax) / math.sqrt(pow((ay), 2) + pow((az), 2))) * 180.0 / 3.14))
+    c = c + 1
+
+AccErrorX = AccErrorX/calibrate_num
+AccErrorY = AccErrorY/calibrate_num
+AccErrorZ = AccErrorZ/calibrate_num
+
+AccAngleErrorX = AccAngleErrorX/calibrate_num
+AccAngleErrorY = AccAngleErrorY/calibrate_num
+c = 0
+
+GyroErrorX = 0
+GyroErrorY = 0
+GyroErrorZ = 0
+
+while (c < calibrate_num):
+    gx = format(registers.register67,'08b') + format(registers.register68,'08b')
+    gx = -BitArray(bin=gx).int / 131.0
+    gy = format(registers.register69,'08b') + format(registers.register70,'08b')
+    gy = -BitArray(bin=gy).int / 131.0
+    gz = format(registers.register71,'08b') + format(registers.register72,'08b')
+    gz = BitArray(bin=gz).int / 131.0
+
+    # Sum all readings
+    GyroErrorX = GyroErrorX + gx
+    GyroErrorY = GyroErrorY + gy
+    GyroErrorZ = GyroErrorZ + gz
+    c = c + 1
+
+GyroErrorX = GyroErrorX / calibrate_num
+GyroErrorY = GyroErrorY / calibrate_num
+GyroErrorZ = GyroErrorZ / calibrate_num
+
+print("Sensor IMU Calibration Done.")
+print(GyroErrorZ)
+
+time_begin = datetime.datetime.now()
+
+xChange = 0
+yChange = 0
+zChange = 0
+
+xDot = 0
+yDot = 0
+zDot = 0
+
+rollChange = 0
+pitchChange = 0
+yawChange = 0
+
 while (1):
+    
     # Each value is constructed by 8-bit LOW BYTE + HIGH BYTE
     # Cannot do [bit shift] then [OR] to combine them like C, has to combine string like below
     # Use BitArray to translate to SIGNED int. Beware of translating to UNSIGNED int, which is wrong
+
     ax = format(registers.register59,'08b') + format(registers.register60,'08b')
-    ax = -BitArray(bin=ax).int
+    ax = -BitArray(bin=ax).int / 16384.0 - AccErrorX
     ay = format(registers.register61,'08b') + format(registers.register62,'08b')
-    ay = -BitArray(bin=ay).int
+    ay = -BitArray(bin=ay).int / 16384.0 - AccErrorY
     az = format(registers.register63,'08b') + format(registers.register64,'08b')
-    az = BitArray(bin=az).int
+    az = BitArray(bin=az).int / 16384.0 - AccErrorZ
+
+    accAngleX = (math.atan(ay / math.sqrt(pow(ax, 2) + pow(az, 2))) * 180.0 / 3.14)
+    accAngleY = (math.atan(-1 * (ax) / math.sqrt(pow(ay, 2) + pow(az, 2))) * 180.0 / 3.14) 
 
     gx = format(registers.register67,'08b') + format(registers.register68,'08b')
-    gx = -BitArray(bin=gx).int
+    gx = -BitArray(bin=gx).int / 131.0 - GyroErrorX
     gy = format(registers.register69,'08b') + format(registers.register70,'08b')
-    gy = -BitArray(bin=gy).int
+    gy = -BitArray(bin=gy).int / 131.0 - GyroErrorY
     gz = format(registers.register71,'08b') + format(registers.register72,'08b')
-    gz = BitArray(bin=gz).int
+    gz = BitArray(bin=gz).int /131.0 - GyroErrorZ
+  
 
-    print(int(ax),"\t", int(ay),"\t", int(az), "\t",int(gx), "\t",int(gy),"\t",int(gz))
-    time.sleep(0.01)
+    #print(float(ax),"\t", float(ay),"\t", float(az), "\t",float(gx), "\t",float(gy),"\t",float(gz))
+    #print(int(ax),"\t", int(ay),"\t", int(az), "\t",int(gx), "\t",int(gy),"\t",int(gz))
+
+    time_end = datetime.datetime.now()
+    time_duration = time_end - time_begin
+    #print(time_duration.total_seconds())
+    time_duration = time_duration.total_seconds()
+
+    
+    xChange = xChange + xDot*time_duration + ax*time_duration*time_duration/2
+    xDot = xDot + ax*time_duration
+
+    yChange = yChange + yDot*time_duration + ay*time_duration*time_duration/2
+    yDot = yDot + ay*time_duration
+
+    zChange = zChange + zDot*time_duration + az*time_duration*time_duration/2
+    zDot = zDot + az*time_duration 
+    
+    rollChange = rollChange + gx*time_duration
+    #rollChange = 0.96*rollChange + 0.04*accAngleX
+    pitchChange = pitchChange + gy*time_duration
+    #pitchChange = 0.96*pitchChange + 0.04*accAngleY
+    yawChange = yawChange + gz*time_duration
+
+    print("x: ", float(xChange),"\t y: ", float(yChange),"\t z: ", float(zChange))
+    print("Roll: ", float(rollChange),"\t Pitch: ", float(pitchChange),"\t Yaw: ", float(yawChange))
+   
+    time.sleep(0.1)
+    time_begin = time_end
