@@ -8,7 +8,7 @@ There was not much example of using MPU-92/65 (i can find only one for MPU-9250 
 * [Adafruit CircuitPython Register](https://docs.circuitpython.org/projects/register/en/latest/examples.html) to access specific registers of the MPU-92/65.   
 * [Arduino example of MPU-9250](https://bitbucket.org/cinqlair/mpu9250/src/master/) for configuring MPU-92/65 and using its **data**.
 * [The servo I2C example](https://github.com/JetsonHacksNano/ServoKit/blob/master/servoPlay.py) of JetsonHacks for some definitions. 
-* These articles to calibrate and use the raw data: [1](https://howtomechatronics.com/tutorials/arduino/arduino-and-mpu6050-accelerometer-and-gyroscope-tutorial/), [2](https://longnight975551865.wordpress.com/2018/02/11/how-to-read-data-from-mpu9250/).
+* These articles to calibrate and use the raw data: [1 - howtomechatronics](https://howtomechatronics.com/tutorials/arduino/arduino-and-mpu6050-accelerometer-and-gyroscope-tutorial/), [2 - longnight975551865](https://longnight975551865.wordpress.com/2018/02/11/how-to-read-data-from-mpu9250/).
 
 ## Requirement
 * Python >= 3.7
