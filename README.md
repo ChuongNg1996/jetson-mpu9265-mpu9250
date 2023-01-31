@@ -9,7 +9,7 @@ There was not much example of using MPU-92/65 (i can find only one for MPU-9250 
 * [Arduino example of MPU-9250](https://bitbucket.org/cinqlair/mpu9250/src/master/) for configuring MPU-92/65 and using its **data**.
 * [The servo I2C example](https://github.com/JetsonHacksNano/ServoKit/blob/master/servoPlay.py) of JetsonHacks for some definitions. 
 * These articles to calibrate and use the raw data: [1 - howtomechatronics](https://howtomechatronics.com/tutorials/arduino/arduino-and-mpu6050-accelerometer-and-gyroscope-tutorial/), [2 - longnight975551865](https://longnight975551865.wordpress.com/2018/02/11/how-to-read-data-from-mpu9250/).
-
+* [MPU6050 + Jetson Nano](https://automaticaddison.com/visualize-imu-data-using-the-mpu6050-ros-and-jetson-nano/)
 ## Requirement
 * Python >= 3.7
 
